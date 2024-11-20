@@ -1,15 +1,19 @@
 import { Routes } from '@angular/router';
 import { LoginPageComponent } from './presentation/page/auth/login/login-page.component';
 import { DashboardLayoutComponent } from './presentation/layout/dashboard/dashboard-layout.component';
+import { authAuthorizedGuard } from './use-case/guard/auth-authorized.guard';
+import { authNotAuthorizedGuard } from './use-case/guard/auth-not-authorized.guard';
 
 export const routes: Routes = [
   {
     path: 'login',
+    canActivate: [authNotAuthorizedGuard],
     component: LoginPageComponent,
   },
   {
     path: 'dashboard',
     component: DashboardLayoutComponent,
+    canActivate: [authAuthorizedGuard],
     children: [
       {
         path: 'home',
